@@ -1,0 +1,106 @@
+<?php $__env->startSection('css'); ?>
+ <!-- DATA TABLES -->
+<?php echo HTML::style("assets/css/datatables/dataTables.bootstrap.css"); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div style="padding: 20px">
+                    <a href="<?php echo $new; ?>" class="btn btn-primary">Tambah Data Penduduk</a>  
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <?php echo $__env->make('layouts.notifikasi', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                <table <?php echo e($pendudukCount > 0 ? "id='tblPenduduk'" : ''); ?> class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                   
+                            </tr>
+                        <tr>
+                            <th>No</th>
+                            
+                            <th>Kepala K</th>
+                            <th>Nama</th>
+                            <th><a href="" class="btn btn-info">NO KK</a> &<a href="" class="btn btn-danger btn-delete"> NIK </a></th>
+                            <th>Kelamin</th>
+                            <th colspan="2"><center>Tempat Tanggal Lahir</center></th>
+                            
+                            <th>Agama</th>
+                            <th>Pendidikan</th>
+                            <th>Pekerjaan</th>
+                            <th>Dusun</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if($pendudukCount > 0): ?>
+                            <?php $no = 1;?>
+                            <?php foreach($penduduk as $row): ?>
+                            <tr>
+                                <td><?php echo $no; ?></td>
+                                
+                                <td><?php echo $row->kepala_keluarga; ?></td>
+                                <td><?php echo $row->nama; ?></td>
+                                <td><a href="" class="btn btn-info"><?php echo $row->nokk; ?></a><br><br>
+                                <a href="" class="btn btn-danger btn-delete"><?php echo $row->nik; ?></a></td>
+                                <td><?php echo $row->jenisklamin; ?></td>
+                                <td colspan="2"><?php echo $row->tempatlahir; ?>
+
+                                <?php echo $row->tanggallahir; ?></td>
+                                <td><?php echo $row->agama->nama; ?></td>
+                                <td><?php echo $row->pendidikan->jenjangpendidikan; ?></td>
+                                <td><?php echo $row->pekerjaan->Jenispekerjaan; ?></td>
+                                <td><?php echo $row->dusun->nama; ?></td>
+                                <td width="100px">
+                                    <a href="<?php echo $editUrl.'/'.$row->id; ?>" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?php echo $deleteUrl.'/'.$row->id; ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                                <?php $no++ ?>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="13">Tidak ada data</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                    <tfoot>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<?php echo HTML::script("assets/js/plugins/datatables/jquery.dataTables.js"); ?>
+
+<?php echo HTML::script("assets/js/plugins/datatables/dataTables.bootstrap.js"); ?>
+
+<!-- AdminLTE App -->
+<?php echo HTML::script("assets/js/AdminLTE/demo.js"); ?>
+
+<!-- page script -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tblPenduduk").dataTable();
+    });
+    var btnDelete = $(".btn-delete");
+        btnDelete.click(function() {
+            console.log("deleted");
+            var konfirmasi = confirm("apakah anda yakin ingin menghapus data ini?");
+            if (konfirmasi == true) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+</script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

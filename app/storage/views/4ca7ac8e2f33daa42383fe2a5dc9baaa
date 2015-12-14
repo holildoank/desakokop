@@ -1,0 +1,81 @@
+<?php $__env->startSection('css'); ?>
+ <!-- DATA TABLES -->
+<?php echo HTML::style("assets/css/datatables/dataTables.bootstrap.css"); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div style="padding: 20px">
+                    <a href="<?php echo $new; ?>" class="btn btn-primary">Tambah Data Pendidiakan</a>  
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <?php echo $__env->make('layouts.notifikasi', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                <table <?php echo e($pendidikanCount > 0 ? "id='tblPendidikan'" : ''); ?> class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Jenjang Pendidikan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if($pendidikanCount > 0): ?>
+                            <?php $no = 1;?>
+                            <?php foreach($pendidikan as $row): ?>
+                            <tr>
+                                <td><?php echo $no; ?></td>
+                                <td><?php echo $row->jenjangpendidikan; ?></td>
+                                <td width="100px">
+                                    <a href="<?php echo $editUrl.'/'.$row->id; ?>" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?php echo $deleteUrl.'/'.$row->id; ?>" class="btn btn-danger btn-delete"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                                <?php $no++ ?>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4">Tidak ada data</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                    <tfoot>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<?php echo HTML::script("assets/js/plugins/datatables/jquery.dataTables.js"); ?>
+
+<?php echo HTML::script("assets/js/plugins/datatables/dataTables.bootstrap.js"); ?>
+
+<!-- AdminLTE App -->
+<?php echo HTML::script("assets/js/AdminLTE/demo.js"); ?>
+
+<!-- page script -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tblPendidikan").dataTable();
+    });
+    var btnDelete = $(".btn-delete");
+        btnDelete.click(function() {
+            console.log("deleted");
+            var konfirmasi = confirm("apakah anda yakin ingin menghapus data ini?");
+            if (konfirmasi == true) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+</script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

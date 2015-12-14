@@ -1,0 +1,25 @@
+{
+    "name": "way/database",
+    "description": "",
+    "authors": [
+        {
+            "name": "Jeffrey Way",
+            "email": "jeffrey@jeffrey-way.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~4.1",
+        "illuminate/database": "~4.1",
+        "illuminate/validation": "~4.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Way\\Database": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
